@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 3.5.2.2
+- http://www.phpmyadmin.net
+-
+- Host: 127.0.0.1
+- Erstellungszeit: 28. Jun 2013 um 14:20
+- Server Version: 5.5.27
+- PHP-Version: 5.4.7
+-->
+
+<pma_xml_export version="1.0" xmlns:pma="http://www.phpmyadmin.net/some_doc_url/">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="multipath" collation="latin1_swedish_ci" charset="latin1">
+            <pma:table name="posts">
+                CREATE TABLE `posts` (
+                  `ID` int(11) NOT NULL AUTO_INCREMENT,
+                  `Parent` int(11) NOT NULL,
+                  `Story` int(11) NOT NULL,
+                  `Wahl` text NOT NULL,
+                  `Text` longtext NOT NULL,
+                  PRIMARY KEY (`ID`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+            </pma:table>
+            <pma:table name="stories">
+                CREATE TABLE `stories` (
+                  `ID` int(11) NOT NULL AUTO_INCREMENT,
+                  `Ueberschrift` text NOT NULL,
+                  `kurzfassung` text NOT NULL,
+                  `Inhalt` longtext NOT NULL,
+                  `User` int(11) NOT NULL,
+                  PRIMARY KEY (`ID`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Datenbank: 'multipath'
+    -->
+    <database name="multipath">
+        <!-- Tabelle posts -->
+        <table name="posts">
+            <column name="ID">1</column>
+            <column name="Parent">0</column>
+            <column name="Story">1</column>
+            <column name="Wahl">1. Wahlmöglichkeit</column>
+            <column name="Text">Sie haben die 1. möglichkeit gewählt</column>
+        </table>
+        <table name="posts">
+            <column name="ID">2</column>
+            <column name="Parent">0</column>
+            <column name="Story">1</column>
+            <column name="Wahl">2. Wahlmöglichkeit</column>
+            <column name="Text">Sie haben die 2. möglichkeit gewählt</column>
+        </table>
+        <table name="posts">
+            <column name="ID">3</column>
+            <column name="Parent">0</column>
+            <column name="Story">1</column>
+            <column name="Wahl">3. Wahlmöglichkeit</column>
+            <column name="Text">Sie haben die 3 möglichkeit gewählt</column>
+        </table>
+        <table name="posts">
+            <column name="ID">4</column>
+            <column name="Parent">0</column>
+            <column name="Story">1</column>
+            <column name="Wahl">4. Wahlmöglichkeit</column>
+            <column name="Text">Sie haben die 4 möglichkeit gewählt</column>
+        </table>
+        <table name="posts">
+            <column name="ID">5</column>
+            <column name="Parent">0</column>
+            <column name="Story">1</column>
+            <column name="Wahl">5. Wahlmöglichkeit</column>
+            <column name="Text">Sie haben die 5 möglichkeit gewählt</column>
+        </table>
+        <!-- Tabelle stories -->
+        <table name="stories">
+            <column name="ID">1</column>
+            <column name="Ueberschrift">Die erste Testgschichte</column>
+            <column name="kurzfassung">Eine kurze Erklährung worum es geht</column>
+            <column name="Inhalt">Die ist die erste Testgeschichte sie dieht nur zum Testen, tjah so ist das nunmal</column>
+            <column name="User">1</column>
+        </table>
+    </database>
+</pma_xml_export>
