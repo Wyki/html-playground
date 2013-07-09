@@ -39,16 +39,19 @@
 		//$sql = "Select * from stories Where ID=1";
 		if (!empty($_POST))
 		{
-			if($_POST["ok"]=="ok")
+			if(isset($_POST["ok"]))
 			{
 				$sql = "INSERT INTO posts(Parent, Story, Wahl, Text) VALUES (";
-				if ($_GET['ID'] == 0)
+				if ($_POST["ok"]=="ok")
 				{
-					$sql = $sql."0,".$_GET['story'];
-				}
-				else
-				{
-					$sql = $sql.$_GET['ID'].",".$_GET['story'];
+					if ($_GET['ID'] == 0)
+					{
+						$sql = $sql."0,".$_GET['story'];
+					}
+					else
+					{
+						$sql = $sql.$_GET['ID'].",".$_GET['story'];
+					}
 				}
 				
 				$sql = $sql.",'".$_POST['Wahl']."','".$_POST['Text']."')";
@@ -56,8 +59,6 @@
 				mysql_query( $sql );
 			}
 		}
-		
-		
 		
 		if ($_GET['ID'] == 0)
 		{
@@ -95,57 +96,66 @@
 			while ($zeile = mysql_fetch_array( $db_erg, MYSQL_ASSOC))
 			{
 				echo '<div class="span4">'.$NL;
-				echo '<p>'.$zeile['Wahl'].'</p>'.$NL;
-				echo '<p><a href="story.php?story='.$_GET['story'].'&ID='.$zeile['ID'].'" class="btn btn-primary btn-small">Lesen &raquo;</a></p><br/><br/>'.$NL;
+					echo '<p>'.$zeile['Wahl'].'</p>'.$NL;
+					echo '<p><a href="story.php?story='.$_GET['story'].'&ID='.$zeile['ID'].'" class="btn btn-primary btn-small">Lesen &raquo;</a></p><br/><br/>'.$NL;
 				echo '</div><!--/span-->'.$NL;
 			}
-				echo '<div class="span4">'.$NL;
-				echo '<p><a id="neuLink" href="#" class="btn btn-primary btn-small">Neu Hinzufügen</a></p><br/><br/>'.$NL;
-				echo '</div><!--/span-->'.$NL;
-			
-			echo '</div><!--/row-->'.$NL
-			
-			
-		
-		?>
-		<div class="row">
-			<div class="span3"></div>
-			<div class="span3">
-				<form class="form-horizontal" method="post">
-					<fieldset>
+			if (empty($_POST) || isset($_POST["ok"]))
+			{
+				echo '<div class="span2">'.$NL;
+					echo '<form class="form-horizontal" method="post">'.$NL;
+						echo '<!-- Button -->'.$NL;
+						echo '<button id="neu" name="neu" class="btn btn-primary" value="neu">neu hinzufügen</button>'.$NL;
+					echo '</form>'.$NL;
+				echo '</div><!--/span-->'.$NL;	
+			}
+			echo '</div><!--/row-->'.$NL;
+			if (!empty($_POST))
+			{
+				if(isset($_POST["neu"]))
+				{
+				if($_POST["neu"]=="neu")
+				{
+				echo '<div class="row">'.$NL;
+					echo '<div class="span3"></div>'.$NL;
+					echo '<div class="span3">'.$NL;
+						echo '<form class="form-horizontal" method="post">'.$NL;
+						
+							echo '<fieldset>'.$NL;
+							echo '<!-- Form Name -->'.$NL;
+							echo '<legend>Neue Auswahl</legend>'.$NL;
 
-					<!-- Form Name -->
-					<legend>Neue Auswahl</legend>
+							echo '<!-- Text input-->'.$NL;
+							echo '<div class="control-group">'.$NL;
+								echo '<label class="control-label" for="Wahl">Auswahl</label>'.$NL;
+								echo '<div class="controls">'.$NL;
+									echo '<input id="auswahl" name="Wahl" placeholder="" class="input-xlarge" type="text">'.$NL;
+								echo '</div>'.$NL;
+							echo '</div>'.$NL;
 
-					<!-- Text input-->
-					<div class="control-group">
-						<label class="control-label" for="Wahl">Auswahl</label>
-						<div class="controls">
-							<input id="auswahl" name="Wahl" placeholder="" class="input-xlarge" type="text">
-						</div>
-					</div>
-
-					<!-- Textarea -->
-					<div class="control-group">
-						<label class="control-label" for="Text">Text</label>
-						<div class="controls">                     
-							<textarea id="Text" name="Text"></textarea>
-						</div>
-					</div>
+							echo '<!-- Textarea -->'.$NL;
+							echo '<div class="control-group">'.$NL;
+								echo '<label class="control-label" for="Text">Text</label>'.$NL;
+								echo '<div class="controls">'.$NL;
+									echo '<textarea id="Text" name="Text"></textarea>'.$NL;
+								echo '</div>'.$NL;
+							echo '</div>'.$NL;
 					
-					<!-- Button -->
-					<div class="control-group">
-						<label class="control-label" for="ok"></label>
-						<div class="controls">
-							<button id="ok" name="ok" class="btn btn-primary" value="ok">OK</button>
-						</div>
-					</div>
-				</fieldset>	
-				</form>
-			</div>
-			<div class="span4"></div>
-		</div>
-
+							echo '<!-- Button -->'.$NL;
+							echo '<div class="control-group">'.$NL;
+								echo '<label class="control-label" for="ok"></label>'.$NL;
+								echo '<div class="controls">'.$NL;
+									echo '<button id="ok" name="ok" class="btn btn-primary" value="ok">OK</button>'.$NL;
+								echo '</div>'.$NL;
+							echo '</div>'.$NL;
+						echo '</fieldset>'.$NL;
+						echo '</form>'.$NL;
+					echo '</div>'.$NL;
+					echo '<div class="span4"></div>'.$NL;
+				echo '</div>'.$NL;
+				}
+			}}
+		?>
 		
 		</div> <!-- /container -->
 		<script src="http://code.jquery.com/jquery.js"></script>
