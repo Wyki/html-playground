@@ -37,6 +37,28 @@
 		$db_sel = mysql_select_db("multipath", $db_link)
 					or die("Auswahl der Datenbank fehlgeschlagen");
 		//$sql = "Select * from stories Where ID=1";
+		if (!empty($_POST))
+		{
+			if($_POST["ok"]=="ok")
+			{
+				$sql = "INSERT INTO posts(Parent, Story, Wahl, Text) VALUES (";
+				if ($_GET['ID'] == 0)
+				{
+					$sql = $sql."0,".$_GET['story'];
+				}
+				else
+				{
+					$sql = $sql.$_GET['ID'].",".$_GET['story'];
+				}
+				
+				$sql = $sql.",'".$_POST['Wahl']."','".$_POST['Text']."')";
+				
+				mysql_query( $sql );
+			}
+		}
+		
+		
+		
 		if ($_GET['ID'] == 0)
 		{
 			$sql = 'Select * from stories Where ID='.$_GET['story'];
@@ -89,7 +111,7 @@
 		<div class="row">
 			<div class="span3"></div>
 			<div class="span3">
-				<form class="form-horizontal">
+				<form class="form-horizontal" method="post">
 					<fieldset>
 
 					<!-- Form Name -->
@@ -97,9 +119,9 @@
 
 					<!-- Text input-->
 					<div class="control-group">
-						<label class="control-label" for="auswahl">Auswahl</label>
+						<label class="control-label" for="Wahl">Auswahl</label>
 						<div class="controls">
-							<input id="auswahl" name="auswahl" placeholder="" class="input-xlarge" type="text">
+							<input id="auswahl" name="Wahl" placeholder="" class="input-xlarge" type="text">
 						</div>
 					</div>
 
@@ -110,6 +132,15 @@
 							<textarea id="Text" name="Text"></textarea>
 						</div>
 					</div>
+					
+					<!-- Button -->
+					<div class="control-group">
+						<label class="control-label" for="ok"></label>
+						<div class="controls">
+							<button id="ok" name="ok" class="btn btn-primary" value="ok">OK</button>
+						</div>
+					</div>
+				</fieldset>	
 				</form>
 			</div>
 			<div class="span4"></div>
